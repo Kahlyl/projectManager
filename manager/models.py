@@ -67,7 +67,7 @@ class Task(models.Model):
     assigned_to = models.ForeignKey(User, related_name='user_tasks', on_delete=CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    project = models.ForeignKey(Project, related_name='phase_tasks', on_delete=CASCADE)
+    project = models.ForeignKey(Project, related_name='project_tasks', on_delete=CASCADE)
     # add a report function
     # add a completed function
     #add a function that determines if completed on time and if not how late it is

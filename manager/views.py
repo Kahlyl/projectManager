@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from manager.models import User, Project, Phase, Message
+from manager.models import User, Project, Message
 from django.contrib import messages
 import bcrypt
 
