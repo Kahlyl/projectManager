@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul>
+                <li>><a href="/create_project">Create New Project</a></li>
+                <li>><a href="/">Logout</a></li>
+                <li>><a href="/inbox">Messages</a></li>
+            </ul>   
+        </div>
+        <div id="body">
+            <div id="wip">
+                <div class="project">
+                    {%for projects in user_projects %}
+                        <ul>
+                            <li><a href="/project/{{project.id}} ">{{projects.title}}</a></li>
+                        </ul>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+
+        </div>
+    </div>
+</body>
+</html>

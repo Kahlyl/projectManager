@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Create New Project</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+        <div id="body">
+            <h1>Project</h1>
+            <!-- Create the project first then add the phases by going into the project. Also assign the contributors -->
+            <div id="form">
+                <form action="/project_creation" method="POST">
+                    {%csrf_token%}
+                    <p>Title: <input type="text" name="project_title" id="project_title"></p>
+                    <p>Due Date: <input type="date" name="project_due_on" id="project_due_on"></p>
+                    <p>Contributors: <select name="contributors" id="contributors"> {% for user in contributors %}
+                        <option value="{{user.id}}">{{user.first_name}}</option> {%endfor%} </select></p>
+                    <input type="submit" value="Add Project">
+                </form>
+            </div>
+        </div>
+        <div id="footer">
+
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/create_project.js' %}"></script>
+</body>
+</html>
