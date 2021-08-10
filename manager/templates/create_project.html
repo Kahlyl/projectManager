@@ -21,8 +21,8 @@
             <div id="form">
                 <form action="/project_creation" method="POST">
                     {%csrf_token%}
-                    <p>Title: <input type="text" name="project_title" id="project_title"></p>
-                    <p>Due Date: <input type="date" name="project_due_on" id="project_due_on"></p>
+                    <p>Title: <input type="text" name="title" id="title"></p>
+                    <p>Due Date: <input type="date" name="due_on" id="due_on"></p>
                     <p>Contributors: <select name="contributors" id="contributors"> {% for user in contributors %}
                         <option value="{{user.id}}">{{user.first_name}}</option> {%endfor%} </select></p>
                     <input type="submit" value="Add Project">

@@ -57,6 +57,8 @@ class Project(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     projectManager = models.OneToOneField(User, on_delete=CASCADE)
     contributor = models.ForeignKey(User,related_name='projects', on_delete=CASCADE)
+    def create(postData, projectManager_id):
+        Project.objects.create(title=postData['title'], due_on=postData['due_on'], contributor=postData['contributor'], projectManager=User.objects.get(id=projectManager_id))
     # add a completed function
     #add a function that determines if completed on time and if not how late it is
 

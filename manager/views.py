@@ -39,6 +39,13 @@ def create_project(request):
     }
     return render(request, 'create_project.html', context)
 
+def project_creation(request):
+    Project.create(request.POST, request.session['user_id'])
+    return redirect('create/task')
+
+def create_task(request):
+    return render('create_task.html')
+
 def inbox(request):
     logged_user = User.objects.get(id=request.session['user_id'])
     sent_messages = Message.objects.filter(reciever=logged_user)
@@ -63,3 +70,4 @@ def project(request, project_id):
         'user_project' : project
     }
     return render(request, 'view_project', context)
+
