@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% load static %}
+    <title>Create New Project</title>
 </head>
 <body>
-    
+    <div id="container">
+        <div id="header">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+        <div id="body">
+            <h1>Task</h1>
+            <div id="form">
+                <form action="/task_creation" method="POST">
+                    {%csrf_token%}
+                    <p>Title: <input type="text" name="task" id="task"></p>
+                    <p>Due Date: <input type="date" name="due_on" id="due_on"></p>
+                    <p>Assigned: <select name="contributors" id="contributors"> {% for user in contributors %}
+                        <option value="{{user.id}}">{{user.first_name}}</option> {%endfor%} </select></p>
+                    <input type="submit" value="Add Task">
+                </form>
+            </div>
+            <button><a href="/dashboard">Finished With Tasks</a></button>
+        </div>
+        <div id="footer">
+
+        </div>
+    </div>
 </body>
 </html>

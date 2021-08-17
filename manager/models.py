@@ -22,6 +22,8 @@ class UserManager(models.Manager):
             errors['duplicate_email'] = 'This email is already in use.'
         if postData['password'] != postData['confirm_pw']:
             errors['no_match'] = 'Passwords do not match.'
+        else:
+            errors['successful'] = 'Registration Successful!!'
         return errors
 
 
@@ -51,20 +53,17 @@ class Message(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=20)
-    completed = models.BooleanField()
     due_on = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    projectManager = models.OneToOneField(User, on_delete=CASCADE)
+    projectManager = models.ForeignKey(User,related_name='projectManager', on_delete=CASCADE)
     contributor = models.ForeignKey(User,related_name='projects', on_delete=CASCADE)
-    def create(postData, projectManager_id):
-        Project.objects.create(title=postData['title'], due_on=postData['due_on'], contributor=postData['contributor'], projectManager=User.objects.get(id=projectManager_id))
     # add a completed function
+    #add a function that says what % of tasks done
     #add a function that determines if completed on time and if not how late it is
 
 class Task(models.Model):
     task = models.CharField(max_length=255)
-    report = models.CharField(max_length=255)
     due_on = models.DateField()
     assigned_to = models.ForeignKey(User, related_name='user_tasks', on_delete=CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -74,3 +73,9 @@ class Task(models.Model):
     # add a completed function
     #add a function that determines if completed on time and if not how late it is
 
+class Report(models.Model):
+    report = models.TextField()
+    reporter = OneToOneField(User, on_delete=CASCADE)
+    task = OneToOneField(Task, on_delete=CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -7,7 +7,16 @@
     <title>{{user_message.title}}</title>
 </head>
 <body>
-    <h1>{{user_message.title}}</h1>
-    <p>{{user_message.text}} </p>
+    <div id="message">
+        <h1>{{user_message.title}}</h1>
+        <p>{{user_message.text}} </p>
+    </div>
+    <div id="sendMessage">
+        <form action="/message/send/{{user_message.sender}} " method="POST">
+        {% csrf_token %}
+            <h1>Title: <input type="text" name="title" id="title"> </h1>
+            <p>Message: <input type="text" name="text" id="text"></p>
+        </form>
+    </div>
 </body>
 </html>

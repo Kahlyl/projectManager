@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from manager.models import User, Project, Message
+from manager.models import User, Project, Message, Task
 from django.contrib import messages
 import bcrypt
 
@@ -40,11 +40,19 @@ def create_project(request):
     return render(request, 'create_project.html', context)
 
 def project_creation(request):
-    Project.create(request.POST, request.session['user_id'])
+    new_project = Project.objects.create(title=request.POST['title'], due_on=request.POST['due_on'], contributor=User.objects.get(id =request.POST['contributors']), projectManager=User.objects.get(id=request.session['user_id']))
+    request.session['project_id'] = new_project.id
     return redirect('create/task')
 
 def create_task(request):
-    return render('create_task.html')
+    context = {
+        'contributors' : User.objects.all()
+    }
+    return render(request, 'create_task.html', context)
+
+def task_creation(request):
+    Task.objects.create(task = request.POST['task'], due_on = request.POST['due_on'], assigned_to = User.objects.get(id=request.POST['contributors']), project = Project.objects.get(id=request.session['project_id']))
+    return redirect('create/task')
 
 def inbox(request):
     logged_user = User.objects.get(id=request.session['user_id'])

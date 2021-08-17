@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/dashboardStylesheet.css' %} ">
     <title>Dashboard</title>
 </head>
 <body>
@@ -17,11 +19,23 @@
         </div>
         <div id="body">
             <div id="wip">
-                <div class="project">
+                <div id="projectTable">
                     {%for projects in user_projects %}
-                        <ul>
-                            <li><a href="/project/{{project.id}} ">{{projects.title}}</a></li>
-                        </ul>
+                        <table>
+                            <tr>
+                                <th>Project</th>
+                                <th>Deadline</th>
+                                <th>Project Manager</th>
+                                <th>Status</th>
+                                <!-- on status have the function that tells how many tasks are done -->
+                            </tr>
+                            <tr>
+                                <td>{{projects.title}} </td>
+                                <td>{{projects.due_on}} </td>
+                                <td>{{projects.projectManager}} </td>
+                                <td>{{projects.completed}} </td>
+                            </tr>
+                        </table>
                     {%endfor%}
                 </div>
             </div>
